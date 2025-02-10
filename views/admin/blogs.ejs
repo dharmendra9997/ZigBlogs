@@ -1,0 +1,36 @@
+
+
+<h2 class="mb-4">All Blogs</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (blogs && blogs.length) { %>
+      <% blogs.forEach(blog => { %>
+        <tr>
+          <td><%= blog.title %></td>
+          <td><%= blog.category ? blog.category.name : 'No Category' %></td>
+          <td><%= blog.description.length > 100 ? blog.description.substring(0, 100) + '...' : blog.description %></td>
+          <td>
+            <!-- Link to edit the blog -->
+            <a href="/admin/blogs/edit/<%= blog._id %>" class="btn btn-sm btn-primary">Edit</a>
+            <!-- Delete form (using POST, assuming method override for DELETE if needed) -->
+            <form action="/admin/blogs/delete/<%= blog._id %>" method="POST" style="display:inline;">
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this blog?');">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    <% } else { %>
+      <tr>
+        <td colspan="4">No blogs available.</td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>

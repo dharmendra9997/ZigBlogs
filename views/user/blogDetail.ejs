@@ -1,0 +1,15 @@
+
+<h2 class="mb-4"><%= blog.title %></h2>
+<p class="text-muted">
+  Published on <%= new Date(blog.publishDate || blog.createdAt).toDateString() %>
+  <% if (blog.category && blog.category.name) { %>
+    | Category: <%= blog.category.name %>
+  <% } %>
+</p>
+<% if (blog.imageFeatured) { %>
+  <img src="<%= blog.imageFeatured %>" alt="<%= blog.title %>" class="img-fluid mb-3">
+<% } %>
+<div>
+  <p><%= blog.description %></p>
+</div>
+<a href="/" class="btn btn-secondary">Back to Home</a>

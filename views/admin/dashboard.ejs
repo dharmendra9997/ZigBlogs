@@ -1,0 +1,41 @@
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="list-group">
+      <a href="/admin/dashboard" class="list-group-item list-group-item-action">Dashboard</a>
+      <a href="/admin/blogs" class="list-group-item list-group-item-action">All Blogs</a>
+      <a href="/admin/blogs/new" class="list-group-item list-group-item-action">Add New Blog</a>
+      <a href="/admin/categories" class="list-group-item list-group-item-action">All Categories</a>
+      <a href="/admin/categories/new" class="list-group-item list-group-item-action">Add New Category</a>
+      <a href="/admin/logout" class="list-group-item list-group-item-action">Logout</a>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <h2>Dashboard</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% blogs.forEach(blog => { %>
+          <tr>
+            <td><%= blog.title %></td>
+            <td><%= blog.category ? blog.category.name : 'N/A' %></td>
+            <td><%= blog.description.substring(0, 100) %>...</td>
+            <td>
+              <a href="/admin/blogs/edit/<%= blog._id %>" class="btn btn-sm btn-primary">Edit</a>
+              <form action="/admin/blogs/delete/<%= blog._id %>" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>

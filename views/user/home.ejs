@@ -1,0 +1,30 @@
+<h1 class="mb-4">Latest Blogs</h1>
+
+
+<form action="/" method="GET" class="mb-4">
+  <div class="input-group">
+    <input type="text" name="search" class="form-control" placeholder="Search blogs by title" value="<%= typeof search !== 'undefined' ? search : '' %>">
+    <button type="submit" class="btn btn-primary">Search</button>
+  </div>
+</form>
+
+<div class="row">
+  <% blogs.forEach(blog => { %>
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <% if (blog.imageThumbnail) { %>
+          <img src="<%= blog.imageThumbnail %>" class="card-img-top" alt="<%= blog.title %>">
+        <% } %>
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="/blog/<%= blog.slug %>"><%= blog.title %></a>
+          </h5>
+          <p class="card-text"><%= blog.description.substring(0, 100) %>...</p>
+        </div>
+        <div class="card-footer">
+          <a href="/blog/<%= blog.slug %>" class="btn btn-primary btn-sm">Read More</a>
+        </div>
+      </div>
+    </div>
+  <% }); %>
+</div>

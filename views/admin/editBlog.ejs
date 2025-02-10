@@ -1,0 +1,58 @@
+<h2>Edit Blog</h2>
+<form action="/admin/blogs/edit/<%= blog._id %>" method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" name="title" id="title" class="form-control" value="<%= blog.title %>" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="category" class="form-label">Category</label>
+    <select name="category" id="category" class="form-select" required>
+      <option value="">Select Category</option>
+      <% categories.forEach(category => { %>
+        <option value="<%= category._id %>" <%= blog.category.equals(category._id) ? 'selected' : '' %>><%= category.name %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea name="description" id="description" rows="5" class="form-control" required><%= blog.description %></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="publishDate" class="form-label">Publish Date</label>
+    <input type="date" name="publishDate" id="publishDate" class="form-control" value="<%= blog.publishDate.toISOString().split('T')[0] %>">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Current Thumbnail:</label>
+    <% if (blog.imageThumbnail) { %>
+      <img src="<%= blog.imageThumbnail %>" alt="Thumbnail" style="max-width: 150px;">
+    <% } else { %>
+      <span>No thumbnail</span>
+    <% } %>
+  </div>
+
+  <div class="mb-3">
+    <label for="thumbnail" class="form-label">Change Thumbnail</label>
+    <input type="file" name="thumbnail" id="thumbnail" class="form-control">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Current Featured Image:</label>
+    <% if (blog.imageFeatured) { %>
+      <img src="<%= blog.imageFeatured %>" alt="Featured" style="max-width: 150px;">
+    <% } else { %>
+      <span>No featured image</span>
+    <% } %>
+  </div>
+
+  <div class="mb-3">
+    <label for="featured" class="form-label">Change Featured Image</label>
+    <input type="file" name="featured" id="featured" class="form-control">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Update</button>
+  <a href="/admin/blogs" class="btn btn-secondary">Cancel</a>
+</form>
