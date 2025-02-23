@@ -8,10 +8,9 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 
-// Authentication
 
 
-// GET /admin/login
+
 exports.getLogin = (req, res) => {
   const token = req.cookies.token;
   if (token) {
@@ -26,7 +25,7 @@ exports.getLogin = (req, res) => {
   res.render('admin/login', { error: null, layout: 'admin/loginLayout' });
 };
 
-// POST /admin/login
+
 exports.postLogin = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -53,10 +52,10 @@ exports.postLogin = async (req, res) => {
 };
 
 
-// Dashboard & Blog Management
 
 
-// GET /admin/dashboard
+
+
 exports.dashboard = async (req, res) => {
   try {
     
@@ -68,7 +67,7 @@ exports.dashboard = async (req, res) => {
   }
 };
 
-// GET /admin/blogs
+
 exports.getBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find().populate('category').sort({ createdAt: -1 });
@@ -79,7 +78,7 @@ exports.getBlogs = async (req, res) => {
   }
 };
 
-// GET /admin/blogs/new
+
 exports.getAddBlog = async (req, res) => {
   try {
     const categories = await Category.find();
@@ -90,14 +89,14 @@ exports.getAddBlog = async (req, res) => {
   }
 };
 
-// POST /admin/blogs/new
+
 exports.addBlog = async (req, res) => {
   try {
     const { title, category, description, publishDate } = req.body;
-    // Generate slug by replacing spaces with hyphens and converting to lowercase
+   
 
     const slug = title.toLowerCase().replace(/\s+/g, '-');
-    // Use Multer files if provided
+  
 
 
     const imageThumbnail = req.files && req.files.thumbnail ? `/uploads/${req.files.thumbnail[0].filename}` : '';
@@ -119,7 +118,7 @@ exports.addBlog = async (req, res) => {
   }
 };
 
-// GET /admin/blogs/edit/:id
+
 exports.getEditBlog = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
@@ -134,7 +133,7 @@ exports.getEditBlog = async (req, res) => {
   }
 };
 
-// POST /admin/blogs/edit/:id
+
 exports.editBlog = async (req, res) => {
   try {
     const { title, category, description, publishDate } = req.body;
@@ -154,7 +153,7 @@ exports.editBlog = async (req, res) => {
   }
 };
 
-// POST /admin/blogs/delete/:id
+
 exports.deleteBlog = async (req, res) => {
   try {
     await Blog.findByIdAndDelete(req.params.id);
@@ -166,10 +165,6 @@ exports.deleteBlog = async (req, res) => {
 };
 
 
-// Category Management
-
-
-// GET /admin/categories
 exports.getCategories = async (req, res) => {
   try {
     const categories = await Category.find();
@@ -180,7 +175,7 @@ exports.getCategories = async (req, res) => {
   }
 };
 
-// POST /admin/categories/new
+
 exports.addCategory = async (req, res) => {
   try {
     const { name } = req.body;
@@ -194,7 +189,7 @@ exports.addCategory = async (req, res) => {
 };
 
 
-// Logout
+
 
 exports.logout = (req, res) => {
   res.clearCookie('token');

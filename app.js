@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 require('dotenv').config();
 
-// Connect to MongoDB 
 require('./config/db');
 
 

@@ -1,23 +1,23 @@
-// routes/adminRoutes.js
+
 const express = require('express');
 const router = express.Router();
 const upload = require('../config/multer');
 const adminController = require('../controllers/adminController');
 const { verifyAdmin } = require('../middleware/auth');
 
-// Default route for /admin:
+
 router.get('/', (req, res) => {
   res.redirect('/admin/login');
 });
 
-// Admin Authentication
+
 router.get('/login', adminController.getLogin);
 router.post('/login', adminController.postLogin);
 
-// Admin Dashboard (protected)
+
 router.get('/dashboard', verifyAdmin, adminController.dashboard);
 
-// Blog Management
+
 router.get('/blogs', verifyAdmin, adminController.getBlogs);
 router.get('/blogs/new', verifyAdmin, adminController.getAddBlog);
 router.post(
@@ -35,12 +35,12 @@ router.post(
 );
 router.post('/blogs/delete/:id', verifyAdmin, adminController.deleteBlog);
 
-// Category Management
+
 router.get('/categories', verifyAdmin, adminController.getCategories);
 router.get('/categories/new', verifyAdmin, (req, res) => res.render('admin/newCategory'));
 router.post('/categories/new', verifyAdmin, adminController.addCategory);
 
-// Logout
+
 router.get('/logout', verifyAdmin, adminController.logout);
 
 
